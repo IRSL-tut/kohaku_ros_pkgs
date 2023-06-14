@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<robot name="kohaku_dualarm" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <!-- import materials -->
+    <xacro:include filename="$(find kohaku_description)/urdf/materials.xacro" />
+    <!-- import transmission -->
+    <xacro:include filename="$(find kohaku_description)/urdf/kohaku_dualarm_hw.trans.xacro" />
+    <!-- import tree -->
+    <xacro:include filename="$(find kohaku_description)/urdf/kohaku_dualarm.mesh.xacro" />
+    <!-- sensor -->
+    <xacro:include filename="$(find kohaku_description)/urdf/kohaku_dualarm.sensors.xacro" />
+
+</robot>

@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import rospy
+from kohaku_ros_driver.kohaku_action_server_node import KohakuActionServerNode
+
+try:
+    aas_node = KohakuActionServerNode()
+    aas_node.run()
+except rospy.ROSInterruptException:
+    pass

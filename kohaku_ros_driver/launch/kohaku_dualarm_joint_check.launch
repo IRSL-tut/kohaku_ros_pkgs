@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find kohaku_ros_driver)/launch/kohaku_dualarm_control.launch"/>
+  <node name="rviz" pkg="rviz"
+        type="rviz"
+        args="-d $(find kohaku_description)/launch/urdf_dualarm.rviz" required="true" />
+</launch>

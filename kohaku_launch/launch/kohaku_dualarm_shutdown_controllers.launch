@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="kohaku_utils" type="kohaku_shutdown_controller"
+        name="kohaku_shutdown_controller_r"
+        args="172.16.1.101" />
+  <node pkg="kohaku_utils" type="kohaku_shutdown_controller"
+        name="kohaku_shutdown_controller_l"
+        args="172.16.1.102" />
+</launch>

@@ -1,0 +1,86 @@
+kohaku_leftarm:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - left_shoulder_yaw
+    - left_shoulder_pitch
+    - left_elbow_pitch
+    - left_wrist_yaw
+    - left_wrist_pitch
+    - left_hand_yaw
+  gains:
+    left_shoulder_yaw: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    left_shoulder_pitch: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    left_elbow_pitch: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    left_wrist_yaw: {p: 100.0, i: 0.01, d: 0.01, i_clamp: 1}
+    left_wrist_pitch: {p: 100.0, i: 0.01, d: 0.01, i_clamp: 1}
+    left_hand_yaw: {p: 100.0, i: 0.01, d: 0.01, i_clamp: 1}
+  constraints:
+    goal_time: 3.0
+  state_publish_rate: 25
+
+kohaku_rightarm:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - right_shoulder_yaw
+    - right_shoulder_pitch
+    - right_elbow_pitch
+    - right_wrist_yaw
+    - right_wrist_pitch
+    - right_hand_yaw
+  gains:
+    right_shoulder_yaw: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    right_shoulder_pitch: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    right_elbow_pitch: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    right_wrist_yaw: {p: 100.0, i: 0.01, d: 0.01, i_clamp: 1}
+    right_wrist_pitch: {p: 100.0, i: 0.01, d: 0.01, i_clamp: 1}
+    right_hand_yaw: {p: 100.0, i: 0.01, d: 0.01, i_clamp: 1}
+  constraints:
+    goal_time: 3.0
+  state_publish_rate: 25
+
+kohaku_lefthand:
+  type: effort_controllers/JointTrajectoryController
+  publish_rate: 250
+  joints:
+    - left_l_finger_joint
+    - left_r_finger_joint
+  action_monitor_rate: 10
+  state_publish_rate:  100
+  stall_velocity_threshold: 0.01
+  goal_tolerance: 0.2
+  stall_timeout: 0.3
+  gains:
+    left_r_finger_joint: {p: 1.0, d: 0.0, i: 0.01, i_clamp: 1}
+    left_l_finger_joint: {p: 1.0, d: 0.0, i: 0.01, i_clamp: 1}
+
+kohaku_righthand:
+  type: effort_controllers/JointTrajectoryController
+  publish_rate: 250
+  joints:
+    - right_l_finger_joint
+    - right_r_finger_joint
+  action_monitor_rate: 10
+  state_publish_rate:  100
+  stall_velocity_threshold: 0.01
+  goal_tolerance: 0.2
+  stall_timeout: 0.3
+  gains:
+    right_r_finger_joint: {p: 1.0, d: 0.0, i: 0.01, i_clamp: 1}
+    right_l_finger_joint: {p: 1.0, d: 0.0, i: 0.01, i_clamp: 1}
+
+gazebo_controll:
+  pid_gains:
+    j1_right: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j2_right: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j3_right: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j4_right: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j5_right: {p: 100.0, i: 0.0, d: 0.01, i_clamp: 1}
+    j6_right_a: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j6_right_b: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j1_left: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j2_left: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j3_left: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j4_left: {p: 1000.0, i: 0.01, d: 10.0, i_clamp: 1}
+    j5_left: {p: 100.0, i: 0.0, d: 0.01, i_clamp: 1}
+    j6_left_a: {p: 1000.0, i: 10.0, d: 0.01, i_clamp: 1}
+    j6_left_b: {p: 1000.0, i: 10.0, d: 0.01, i_clamp: 1}

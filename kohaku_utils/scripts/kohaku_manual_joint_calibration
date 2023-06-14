@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys
+import time
+from hr4c_driver import KohakuModel4
+
+
+def main(ipaddr, lr):
+    robot = KohakuModel4(ipaddr, lr=lr)
+    robot.open_device()
+
+    calibration_angles = [0.872, -0.785, -0.785 + 2.705, -2.094, 0.99, -2.967]
+
+    if lr == 'l':
+        calibration_angles[0] *= -1
+        calibration_angles[3] *= -1
+        calibration_angles[5] *= -1
+
+    # サーボオフ
+    robot.servo_all_off()
+
+    # alarm reset
+    print("alarm reset")
+    for i in range(len(calibration_angles)):
+        robot.alarm_reset(i)
+
+    # calibration
+    for i in range(len(calibration_angles)):
+        input_msg = "Wait for setting J" + str(i + 1) + " to calibration angle"
+        input(input_msg)
+        print("calibrate J" + str(i + 1))
+        robot.calibrate_joint(i, calibration_angles[i])
+        time.sleep(0.1)
+
+    robot.close_device()
+    print("calibration end")
+
+
+if __name__ == '__main__':
+    if len(sys.argv) < 3:
+        print("Usage: rosrun kohaku_utils kohaku_manual_joint_calibration 172.16.1.102 l")
+    else:
+        main(sys.argv[1], sys.argv[2])

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="joint_names_left" default="[left_shoulder_yaw, left_shoulder_pitch, left_elbow_pitch, left_wrist_yaw, left_wrist_pitch, left_hand_yaw, left_l_finger_joint, left_r_finger_joint]"/>
+  <arg name="joint_names_right" default="[right_shoulder_yaw, right_shoulder_pitch, right_elbow_pitch, right_wrist_yaw, right_wrist_pitch, right_hand_yaw, right_l_finger_joint, right_r_finger_joint]"/>
+
+  <group ns="kohaku_left">
+    <node name="kohaku_ros_driver_node_left" output="screen"
+          pkg="kohaku_ros_driver" type="kohaku_ros_driver_node" >
+      <param name="ip_addr" value="172.16.1.102"/>
+      <param name="ir" value="r"/>
+      <rosparam param="joint_names" subst_value="True">$(arg joint_names_left)</rosparam>
+      <param name="sampling_rate" value="100"/>
+    </node>
+  </group>
+
+  <group ns="kohaku_right">
+    <node name="kohaku_ros_driver_node_right" output="screen"
+          pkg="kohaku_ros_driver" type="kohaku_ros_driver_node" >
+      <param name="ip_addr" value="172.16.1.101"/>
+      <param name="ir" value="r"/>
+      <rosparam param="joint_names" subst_value="True">$(arg joint_names_right)</rosparam>
+      <param name="sampling_rate" value="100"/>
+    </node>
+  </group>
+
+  <node name="kohaku_action_server_node_left" output="screen"
+        pkg="kohaku_ros_driver" type="kohaku_action_server_node" >
+    <rosparam param="joint_names" subst_value="True">$(arg joint_names_left)</rosparam>
+    <param name="arm_trajectory_action_name" value="kohaku_leftarm/follow_joint_trajectory"/>
+    <param name="gripper_action_name" value="kohaku_lefthand/gripper_cmd"/>
+    <param name="gohome_action_name" value="kohaku_leftarm/go_to_home_position"/>
+    <param name="gorest_action_name" value="kohaku_leftarm/go_to_rest_position"/>
+    <param name="gripper_target_time" value="2.0"/>
+    <param name="service_namespace" value="kohaku_left"/>
+    <param name="sampling_rate" value="100"/>
+    <param name="gripper_close_offset" value="-0.25"/>
+    <param name="gripper_adapt_time" value="0.2"/>
+    <param name="follow_mode" value="waypoint" />
+    <param name="moveit_control_rate" value="25.0" />
+    <param name="minimum_control_duration" value="2.0" />
+    <remap from="joint_states" to="/kohaku_left/joint_states" />
+    <remap from="joint_currents" to="/kohaku_left/joint_currents" />
+  </node>
+
+  <node name="kohaku_action_server_node_right" output="screen"
+        pkg="kohaku_ros_driver" type="kohaku_action_server_node" >
+    <rosparam param="joint_names" subst_value="True">$(arg joint_names_right)</rosparam>
+    <param name="arm_trajectory_action_name" value="kohaku_rightarm/follow_joint_trajectory"/>
+    <param name="gripper_action_name" value="kohaku_righthand/gripper_cmd"/>
+    <param name="gohome_action_name" value="kohaku_rightarm/go_to_home_position"/>
+    <param name="gorest_action_name" value="kohaku_rightarm/go_to_rest_position"/>
+    <param name="gripper_target_time" value="2.0"/>
+    <param name="service_namespace" value="kohaku_right"/>
+    <param name="sampling_rate" value="100"/>
+    <param name="gripper_close_offset" value="-0.25"/>
+    <param name="gripper_adapt_time" value="0.2"/>
+    <param name="follow_mode" value="waypoint" />
+    <param name="moveit_control_rate" value="25.0" />
+    <param name="minimum_control_duration" value="2.0" />
+    <remap from="joint_states" to="/kohaku_right/joint_states" />
+    <remap from="joint_currents" to="/kohaku_right/joint_currents" />
+  </node>
+
+  <node name="kohaku_jointstates_integrator_node" output="screen"
+        pkg="kohaku_ros_driver" type="jointstates_integrator_node" >
+    <param name="left_group_name" value="kohaku_left"/>
+    <param name="right_group_name" value="kohaku_right"/>
+    <param name="fps" value="100.0"/>
+  </node>
+
+</launch>

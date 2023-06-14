@@ -1,0 +1,4 @@
+<launch>
+  <!-- Params for 3D sensors config -->
+  <rosparam command="load" file="$(find kohaku_dualarm_moveit_config)/config/sensors_3d.yaml" />
+</launch>

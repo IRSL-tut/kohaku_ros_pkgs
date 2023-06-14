@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<robot name="kohaku_dualarm" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find kohaku_description)/urdf/_d435.urdf.xacro" />
+  <xacro:sensor_d435 name="camera" topics_ns="camera" parent="camera_jig_link" publish_pointcloud="true">
+    <origin xyz="0.039 0.012 0.013" rpy="0 0 0" />
+  </xacro:sensor_d435>
+
+</robot>

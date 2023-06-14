@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="kohaku_ros_driver_node" output="screen"
+        pkg="kohaku_ros_driver" type="kohaku_ros_driver_node" >
+    <param name="ip_addr" value="172.16.1.101"/>
+    <param name="ir" value="r"/>
+    <param name="sampling_rate" value="100"/>
+  </node>
+</launch>

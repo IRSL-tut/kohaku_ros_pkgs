@@ -1,0 +1,605 @@
+<?xml version="1.0" ?>
+<robot name="kohaku_dualarm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:property name="camera_angle" value="1.23" />
+
+<link name="world"/>
+<joint name="world_to_base_link" type="fixed" >
+  <parent link="world" />
+  <child link="base_link" />
+</joint>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.15079905348722558 0.002632253893124613 0.12091351070017117" rpy="0 0 0"/>
+    <mass value="129.89853651459157"/>
+    <inertia ixx="9.979542" iyy="9.36588" izz="9.520271" ixy="-0.046433" iyz="-0.02707" ixz="-1.764444"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_upperarm_link">
+  <inertial>
+    <origin xyz="5.075907070683193e-05 0.0055551687418621265 0.06093355009099832" rpy="0 0 0"/>
+    <mass value="1.6464184320412805"/>
+    <inertia ixx="0.012435" iyy="0.01254" izz="0.000862" ixy="2e-06" iyz="-0.000385" ixz="5e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.16498 -0.502019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_upperarm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.16498 -0.502019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_upperarm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_forearm_link">
+  <inertial>
+    <origin xyz="-0.0028629714869261927 -0.0029849490325699057 0.0665229146241868" rpy="0 0 0"/>
+    <mass value="0.5147558278242914"/>
+    <inertia ixx="0.001435" iyy="0.001418" izz="0.000194" ixy="1e-06" iyz="-5.7e-05" ixz="-4.1e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.164945 -0.752019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_forearm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.164945 -0.752019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_forearm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_wrist_yaw_link">
+  <inertial>
+    <origin xyz="-0.0012123899494678285 0.00799629493788756 0.05493382214308451" rpy="0 0 0"/>
+    <mass value="1.0197481013710548"/>
+    <inertia ixx="0.001319" iyy="0.001172" izz="0.000585" ixy="7e-06" iyz="-0.000192" ixz="2.4e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.164874 -0.902019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_wrist_yaw_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.164874 -0.902019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_wrist_yaw_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_wrist_pitch_link">
+  <inertial>
+    <origin xyz="4.65267917359076e-05 0.0005212096653225973 0.03002034855665814" rpy="0 0 0"/>
+    <mass value="0.3895986537799301"/>
+    <inertia ixx="0.000199" iyy="0.000188" izz="0.000103" ixy="-0.0" iyz="-6e-06" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.16486 -1.002019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_wrist_pitch_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.16486 -1.002019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_wrist_pitch_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_hand_palm_link">
+  <inertial>
+    <origin xyz="0.0002318570856491807 -6.828401333128231e-05 0.017667823933595006" rpy="0 0 0"/>
+    <mass value="0.32135536491616284"/>
+    <inertia ixx="0.000221" iyy="5.4e-05" izz="0.000213" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.164851 -1.067019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_hand_palm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.164851 -1.067019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_hand_palm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_r_finger_link">
+  <inertial>
+    <origin xyz="0.00015745354838760627 0.006862307384075728 0.03618445014614924" rpy="0 0 0"/>
+    <mass value="0.07719980680600205"/>
+    <inertia ixx="2e-05" iyy="2.8e-05" izz="1.5e-05" ixy="0.0" iyz="-4e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.133848 -1.089074" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_r_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.133848 -1.089074" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_r_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_l_finger_link">
+  <inertial>
+    <origin xyz="-0.00015745364544006435 -0.006872074383145355 0.03618219144765589" rpy="0 0 0"/>
+    <mass value="0.07719980680600244"/>
+    <inertia ixx="2e-05" iyy="2.8e-05" izz="1.5e-05" ixy="0.0" iyz="4e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.195848 -1.089083" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_l_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.195848 -1.089083" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_l_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_upperarm_link">
+  <inertial>
+    <origin xyz="6.28442313096618e-05 0.006835763049751115 0.07545195310129493" rpy="0 0 0"/>
+    <mass value="1.3298060603996433"/>
+    <inertia ixx="0.010625" iyy="0.010715" izz="0.000507" ixy="2e-06" iyz="-0.000257" ixz="6e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 0.165 -0.502" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_upperarm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 0.165 -0.502" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_upperarm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_forearm_link">
+  <inertial>
+    <origin xyz="-0.002862922182678501 -0.002976875459199807 0.06652323644658864" rpy="0 0 0"/>
+    <mass value="0.5147646926800391"/>
+    <inertia ixx="0.001435" iyy="0.001418" izz="0.000194" ixy="1e-06" iyz="-5.7e-05" ixz="-4.1e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 0.165 -0.752" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_forearm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 0.165 -0.752" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_forearm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_wrist_yaw_link">
+  <inertial>
+    <origin xyz="-0.0012077095485982584 0.008005720369017338 0.0550085391055799" rpy="0 0 0"/>
+    <mass value="1.0237000713299513"/>
+    <inertia ixx="0.001322" iyy="0.001173" izz="0.000586" ixy="7e-06" iyz="-0.000192" ixz="2.4e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 0.16505 -0.902" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_wrist_yaw_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 0.16505 -0.902" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_wrist_yaw_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_wrist_pitch_link">
+  <inertial>
+    <origin xyz="4.661107241576458e-05 0.0005260238582204257 0.030027676943425563" rpy="0 0 0"/>
+    <mass value="0.3888941704743227"/>
+    <inertia ixx="0.000199" iyy="0.000188" izz="0.000103" ixy="-0.0" iyz="-6e-06" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 0.16505 -1.002" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_wrist_pitch_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 0.16505 -1.002" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_wrist_pitch_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_hand_palm_link">
+  <inertial>
+    <origin xyz="-2.2188362258646066e-11 -6.708764863327943e-05 0.017600327592202314" rpy="0 0 0"/>
+    <mass value="0.3164695600213004"/>
+    <inertia ixx="0.000216" iyy="5.3e-05" izz="0.000207" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 0.16505 -1.067" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_hand_palm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 0.16505 -1.067" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_hand_palm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_r_finger_link">
+  <inertial>
+    <origin xyz="0.0001574535453947555 0.006867190642168924 0.03618311934404739" rpy="0 0 0"/>
+    <mass value="0.07719980680600211"/>
+    <inertia ixx="2e-05" iyy="2.8e-05" izz="1.5e-05" ixy="0.0" iyz="-4e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 0.19605 -1.08906" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_r_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 0.19605 -1.08906" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_r_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_l_finger_link">
+  <inertial>
+    <origin xyz="-0.0001574536484330348 -0.006867190654270244 0.036183119343653924" rpy="0 0 0"/>
+    <mass value="0.07719980680600211"/>
+    <inertia ixx="2e-05" iyy="2.8e-05" izz="1.5e-05" ixy="0.0" iyz="4e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 0.13405 -1.08906" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_l_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 0.13405 -1.08906" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_l_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="camera_base">
+  <inertial>
+    <origin xyz="0.016950029688606393 -0.00716311606080537 0.0018584699632485657" rpy="0 0 0"/>
+    <mass value="0.14882356320498133"/>
+    <inertia ixx="5.6e-05" iyy="2.9e-05" izz="6e-05" ixy="9e-06" iyz="9e-06" ixz="-2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.03 -0.015 -0.795" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/camera_base_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.03 -0.015 -0.795" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/camera_base_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="camera_jig_link">
+  <inertial>
+    <origin xyz="0.03422834270251631 0.010320547163566337 0.022530793104373115" rpy="0 0 0"/>
+    <mass value="0.6223531709069755"/>
+    <inertia ixx="0.000405" iyy="0.000203" izz="0.00041" ixy="-3e-06" iyz="-3e-06" ixz="-6.7e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.055 -0.0045 -0.795" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/camera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.055 -0.0045 -0.795" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/camera_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_shoulder_link">
+  <inertial>
+    <origin xyz="-0.0002483716377100001 0.002599957397357383 0.07656293547299953" rpy="0 0 0"/>
+    <mass value="4.599230696027372"/>
+    <inertia ixx="0.018029" iyy="0.017921" izz="0.01062" ixy="3.5e-05" iyz="0.000417" ixz="2.8e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.165 -0.360019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_shoulder_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.165 -0.360019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_shoulder_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_shoulder_link">
+  <inertial>
+    <origin xyz="-0.00024954454442560267 0.0026120260106482773 0.07656295525588974" rpy="0 0 0"/>
+    <mass value="4.5990809553104635"/>
+    <inertia ixx="0.018029" iyy="0.017921" izz="0.010619" ixy="3.5e-05" iyz="0.000416" ixz="2.8e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 0.165 -0.36" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_shoulder_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 0.165 -0.36" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_shoulder_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_base_frame">
+  <inertial>
+    <origin xyz="-0.048104095750049355 0.08571557516681824 -0.09306512049076127" rpy="0 0 0"/>
+    <mass value="25.99551418429674"/>
+    <inertia ixx="0.146903" iyy="0.101347" izz="0.086479" ixy="-9.9e-05" iyz="-0.009456" ixz="-8.9e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.033 -0.031 -0.36" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_base_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.033 -0.031 -0.36" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_base_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_base_frame">
+  <inertial>
+    <origin xyz="-0.047895235127222845 -0.08570427691041646 -0.09307497415651689" rpy="0 0 0"/>
+    <mass value="25.99675882675514"/>
+    <inertia ixx="0.146909" iyy="0.101349" izz="0.086487" ixy="-9.9e-05" iyz="0.00946" ixz="8.9e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.033 0.031 -0.36" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_base_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.033 0.031 -0.36" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/right_base_frame_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="left_arm_fix" type="fixed">
+  <origin xyz="0.033 0.031 0.326" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_base_frame"/>
+</joint>
+
+<joint name="left_shoulder_yaw" type="revolute">
+  <origin xyz="-0.048 0.134 1.9e-05" rpy="0 0 0"/>
+  <parent link="left_base_frame"/>
+  <child link="left_shoulder_link"/>
+  <axis xyz="0.0 -0.00014 1.0"/>
+  <limit upper="2.792527" lower="-0.872665" effort="100" velocity="100"/>
+</joint>
+
+<joint name="left_shoulder_pitch" type="revolute">
+  <origin xyz="0.0 -2e-05 0.142" rpy="0 0 0"/>
+  <parent link="left_shoulder_link"/>
+  <child link="left_upperarm_link"/>
+  <axis xyz="-0.0 1.0 0.00014"/>
+  <limit upper="1.832" lower="-0.785" effort="100" velocity="100"/>
+</joint>
+
+<joint name="left_elbow_pitch" type="revolute">
+  <origin xyz="0.0 -3.5e-05 0.25" rpy="0 0 0"/>
+  <parent link="left_upperarm_link"/>
+  <child link="left_forearm_link"/>
+  <axis xyz="-0.0 1.0 0.00014"/>
+  <limit upper="2.705" lower="0.436" effort="100" velocity="100"/>
+</joint>
+
+<joint name="left_wrist_yaw" type="revolute">
+  <origin xyz="0.0 -7.1e-05 0.15" rpy="0 0 0"/>
+  <parent link="left_forearm_link"/>
+  <child link="left_wrist_yaw_link"/>
+  <axis xyz="0.0 -0.00014 1.0"/>
+  <limit upper="2.094" lower="-2.094" effort="100" velocity="100"/>
+</joint>
+
+<joint name="left_wrist_pitch" type="revolute">
+  <origin xyz="0.0 -1.4e-05 0.1" rpy="0 0 0"/>
+  <parent link="left_wrist_yaw_link"/>
+  <child link="left_wrist_pitch_link"/>
+  <axis xyz="-0.0 1.0 0.00014"/>
+  <limit upper="1.047" lower="-1.047" effort="100" velocity="100"/>
+</joint>
+
+<joint name="left_hand_yaw" type="revolute">
+  <origin xyz="0.0 -9e-06 0.065" rpy="0 0 0"/>
+  <parent link="left_wrist_pitch_link"/>
+  <child link="left_hand_palm_link"/>
+  <axis xyz="-0.0 -0.00014 1.0"/>
+  <limit upper="2.967" lower="-2.967" effort="100" velocity="100"/>
+</joint>
+
+<joint name="left_r_finger_joint" type="revolute">
+  <origin xyz="0.0 -0.031003 0.022055" rpy="0 0 0"/>
+  <parent link="left_hand_palm_link"/>
+  <child link="left_r_finger_link"/>
+  <axis xyz="1.0 0.0 0.0"/>
+  <limit upper="1.57" lower="-0.198" effort="100" velocity="100"/>
+</joint>
+
+<joint name="left_l_finger_joint" type="revolute">
+  <origin xyz="0.0 0.030997 0.022064" rpy="0 0 0"/>
+  <parent link="left_hand_palm_link"/>
+  <child link="left_l_finger_link"/>
+  <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit upper="1.57" lower="-0.198" effort="100" velocity="100"/>
+</joint>
+
+<joint name="right_arm_fix" type="fixed">
+  <origin xyz="0.033 -0.031 0.326" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_base_frame"/>
+</joint>
+
+<joint name="right_shoulder_yaw" type="revolute">
+  <origin xyz="-0.048 -0.134 0.0" rpy="0 0 0"/>
+  <parent link="right_base_frame"/>
+  <child link="right_shoulder_link"/>
+  <axis xyz="0.0 -0.0 1.0"/>
+  <limit upper="0.872" lower="-2.792" effort="100" velocity="100"/>
+</joint>
+
+<joint name="right_shoulder_pitch" type="revolute">
+  <origin xyz="0.0 0.0 0.142" rpy="0 0 0"/>
+  <parent link="right_shoulder_link"/>
+  <child link="right_upperarm_link"/>
+  <axis xyz="0.0 1.0 0.0"/>
+  <limit upper="1.832" lower="-0.785" effort="100" velocity="100"/>
+</joint>
+
+<joint name="right_elbow_pitch" type="revolute">
+  <origin xyz="0.0 0.0 0.25" rpy="0 0 0"/>
+  <parent link="right_upperarm_link"/>
+  <child link="right_forearm_link"/>
+  <axis xyz="0.0 1.0 0.0"/>
+  <limit upper="2.705" lower="0.436" effort="100" velocity="100"/>
+</joint>
+
+<joint name="right_wrist_yaw" type="revolute">
+  <origin xyz="0.0 -5e-05 0.15" rpy="0 0 0"/>
+  <parent link="right_forearm_link"/>
+  <child link="right_wrist_yaw_link"/>
+  <axis xyz="0.0 0.0 1.0"/>
+  <limit upper="2.094" lower="-2.094" effort="100" velocity="100"/>
+</joint>
+
+<joint name="right_wrist_pitch" type="revolute">
+  <origin xyz="0.0 0.0 0.1" rpy="0 0 0"/>
+  <parent link="right_wrist_yaw_link"/>
+  <child link="right_wrist_pitch_link"/>
+  <axis xyz="-0.0 1.0 0.0"/>
+  <limit upper="1.047" lower="-1.047" effort="100" velocity="100"/>
+</joint>
+
+<joint name="right_hand_yaw" type="revolute">
+  <origin xyz="0.0 0.0 0.065" rpy="0 0 0"/>
+  <parent link="right_wrist_pitch_link"/>
+  <child link="right_hand_palm_link"/>
+  <axis xyz="-0.0 0.0 1.0"/>
+  <limit upper="2.967" lower="-2.967" effort="100" velocity="100"/>
+</joint>
+
+<joint name="right_r_finger_joint" type="revolute">
+  <origin xyz="0.0 -0.031 0.02206" rpy="0 0 0"/>
+  <parent link="right_hand_palm_link"/>
+  <child link="right_r_finger_link"/>
+  <axis xyz="1.0 0.0 0.0"/>
+  <limit upper="1.57" lower="-0.198" effort="100" velocity="100"/>
+</joint>
+
+<joint name="right_l_finger_joint" type="revolute">
+  <origin xyz="0.0 0.031 0.02206" rpy="0 0 0"/>
+  <parent link="right_hand_palm_link"/>
+  <child link="right_l_finger_link"/>
+  <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit upper="1.57" lower="-0.198" effort="100" velocity="100"/>
+</joint>
+
+<joint name="camera_base_fix" type="fixed">
+  <origin xyz="0.03 -0.015 0.7" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="camera_base"/>
+</joint>
+
+<joint name="camera_link_jig_fix" type="fixed">
+  <origin xyz="0.025 -0.0105 0.0" rpy="0 ${camera_angle} 0"/>
+  <parent link="camera_base"/>
+  <child link="camera_jig_link"/>
+</joint>
+
+</robot>

@@ -1,0 +1,204 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys
+import time
+from hr4c_driver import KohakuModel4
+
+
+class AutoCalibration(object):
+    def __init__(self, ipaddr, lr):
+        self._robot = KohakuModel4(ipaddr, lr=lr)
+        self._robot.open_device()
+        self._lr = lr
+
+        # キャリブレーションオフセット
+        # J1: 内, J2: 奥, J3: J2奥で折りたたむ, J4: 内, J5: 真下, J6: 内
+        self._calib_list = [0.872, -0.785, -0.785 + 2.705, -2.094, 0.99, -2.967]
+
+        if lr == 'l':
+            self._calib_list[0] *= -1
+            self._calib_list[3] *= -1
+            self._calib_list[5] *= -1
+
+    def run(self):
+        print("start auto calibration")
+
+        # サーボオフ
+        self._robot.servo_all_off()
+
+        # alarm reset
+        print("alarm reset")
+        for i in range(len(self._calib_list)):
+            self._robot.alarm_reset(i)
+
+        # J1サーボオン
+        self._robot.servo_on(0)
+
+        # J1キャリブレーション
+        if self._lr == 'r':
+            speed_j1 = 0.2
+        else:
+            speed_j1 = -0.2
+        self._robot.move_until_contact(0,
+                                       speed_j1,
+                                       5.0,
+                                       thres_count=10)
+        self._robot.calibrate_joint(0, self._calib_list[0])
+        time.sleep(0.5)
+
+        # J1を正面に移動
+        self._robot.servo_off(0)
+        time.sleep(0.5)
+        self._robot.set_control_mode([1, 1, 1,
+                                      1, 1, 1,
+                                      1, 1])
+        time.sleep(0.5)
+        self._robot.servo_on(0)
+        time.sleep(0.5)
+        self._robot.set_joint_trajectory([0.0, 0.0, 0.0,
+                                          0.0, 0.0, 0.0,
+                                          0.0, 0.0],
+                                         3.0,
+                                         mask=[0, 1, 1,
+                                               1, 1, 1,
+                                               1, 1],
+                                         wait_interpolation=True)
+
+        # 制御モード変更, J2は速度制御
+        self._robot.set_control_mode([1, 2, 1,
+                                      1, 1, 1,
+                                      1, 1])
+
+        # J2サーボオン
+        self._robot.servo_on(1)
+
+        # J2をキャリブレーションのために折りたたむ
+        speed_j2 = -0.2
+        self._robot.move_until_contact(1,
+                                       speed_j2,
+                                       3.0,
+                                       thres_count=10)
+        self._robot.calibrate_joint(1, self._calib_list[1])
+        time.sleep(0.5)
+        self._robot.servo_off(1)
+
+        # 制御モード変更, J2/J3は電流制御
+        self._robot.set_control_mode([1, 3, 3,
+                                      1, 1, 1,
+                                      1, 1])
+
+        # J2/J3サーボオン
+        self._robot.servo_on(1)
+        self._robot.servo_on(2)
+        current_j2 = -0.8
+        current_j3 = 0.8
+        self._robot.set_joint_trajectory([0.0, current_j2, current_j3,
+                                          0.0, 0.0, 0.0,
+                                          0.0, 0.0],
+                                         3.0,
+                                         mask=[1, 0, 0,
+                                               1, 1, 1,
+                                               1, 1],
+                                         wait_interpolation=True)
+        self._robot.calibrate_joint(2, self._calib_list[2])
+        time.sleep(0.5)
+
+        # J2/J3サーボオフ
+        self._robot.servo_off(1)
+        self._robot.servo_off(2)
+
+        # 制御モード変更, J1は速度制御、J2/J3は位置制御
+        self._robot.set_control_mode([2, 1, 1,
+                                      1, 1, 1,
+                                      1, 1])
+
+        # J1/J2/J3サーボオン
+        self._robot.servo_on(0)
+        self._robot.servo_on(1)
+        self._robot.servo_on(2)
+
+        # J5キャリブレーション位置に移動
+        self._robot.set_joint_trajectory([0.0, -0.785, 1.92,
+                                          0.0, 0.0, 0.0,
+                                          0.0, 0.0],
+                                         3.0,
+                                         mask=[0, 0, 0,
+                                               1, 1, 1,
+                                               1, 1],
+                                         wait_interpolation=True)
+
+        # J5 キャリブレーション
+        self._robot.calibrate_joint(4, self._calib_list[4])
+        time.sleep(0.5)
+
+        # J4/J6キャリブレーション位置に移動
+        self._robot.set_joint_trajectory([0.0, 1.57, 1.57,
+                                          0.0, 0.0, 0.0,
+                                          0.0, 0.0],
+                                         3.0,
+                                         mask=[0, 0, 0,
+                                               1, 1, 1,
+                                               1, 1],
+                                         wait_interpolation=True)
+
+        if self._lr == 'r':
+            speed_j4 = -0.3
+            speed_j6 = -0.3
+        else:
+            speed_j4 = 0.3
+            speed_j6 = 0.3
+
+        # J4 キャリブレーション
+        self._robot.set_control_mode([1, 1, 1,
+                                      2, 1, 1,
+                                      1, 1])
+        # J4サーボオン, キャリブレーション
+        self._robot.servo_on(3)
+        self._robot.move_until_contact(3,
+                                       speed_j4,
+                                       8.0,
+                                       thres_count=10)
+        self._robot.calibrate_joint(3, self._calib_list[3])
+        time.sleep(0.5)
+
+        # J4サーボオフ
+        self._robot.servo_off(3)
+
+        # J6サーボオン, キャリブレーション
+        self._robot.servo_on(5)
+        self._robot.move_until_contact(5,
+                                       speed_j6,
+                                       4.0,
+                                       thres_count=10)
+        self._robot.calibrate_joint(5, self._calib_list[5])
+        time.sleep(0.5)
+
+        # J6サーボオフ
+        self._robot.servo_off(5)
+
+        # 制御モードを位置制御に戻す
+        self._robot.set_control_mode([1, 1, 1, 1, 1, 1, 1])
+
+        # J4/J5/J6サーボオン
+        self._robot.servo_on(3)
+        self._robot.servo_on(4)
+        self._robot.servo_on(5)
+
+        # 待機位置に移動して全体サーボオフ
+        self._robot.go_to_rest_position()
+
+        # alarm reset
+        print("alarm reset")
+        for i in range(len(self._calib_list)):
+            self._robot.alarm_reset(i)
+
+
+        print("finish auto calibration")
+
+
+if __name__ == '__main__':
+    if len(sys.argv) < 3:
+        print("Usage: rosrun kohaku_utils kohaku_auto_calibration 172.16.1.101 r")
+    else:
+        calibrator = AutoCalibration(sys.argv[1], sys.argv[2])
+        calibrator.run()

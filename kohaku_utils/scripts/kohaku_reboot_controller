@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys
+import time
+import paho.mqtt.client as mqtt
+
+
+def on_connect(client, userdata, flag, rc):
+  print("Connected with result code " + str(rc))
+
+
+def on_disconnect(client, userdata, rc):
+  if rc != 0:
+     print("Unexpected disconnection.")
+
+
+def on_publish(client, userdata, mid):
+    print("published data(mid): {0}".format(mid))
+
+
+def main(ipaddr):
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.on_publish = on_publish
+
+    client.connect(ipaddr, 1883, 60)
+    client.publish("hr4c_controller_command","reboot")
+
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print("Usage: rosrun kohaku_utils kohaku_reboot_controller 172.16.1.102")
+    else:
+        main(sys.argv[1])

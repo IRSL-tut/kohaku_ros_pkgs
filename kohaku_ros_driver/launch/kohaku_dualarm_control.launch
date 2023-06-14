@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="tf" type="static_transform_publisher" name="right_palm_to_right_tcp"
+        args="0 0 0.075 0 0 0 right_hand_palm_link right_tcp 100" />
+  <node pkg="tf" type="static_transform_publisher" name="left_palm_to_left_tcp"
+        args="0 0 0.075 0 0 0 left_hand_palm_link left_tcp 100" />
+
+  <include file="$(find kohaku_description)/launch/kohaku_dualarm_upload.launch"/>
+  <include file="$(find kohaku_ros_driver)/launch/kohaku_dualarm_ros_driver.launch"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+</launch>
