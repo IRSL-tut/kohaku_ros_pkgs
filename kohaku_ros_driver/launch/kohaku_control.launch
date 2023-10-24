@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="tf" type="static_transform_publisher" name="palm_to_tcp"
+        args="0 0 0.075 0 0 0 hand_palm_link tcp 100" />
+
+  <include file="$(find kohaku_description)/launch/kohaku_upload.launch"/>
+  <include file="$(find kohaku_ros_driver)/launch/kohaku_ros_driver.launch"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+    <remap from="/joint_states" to="/kohaku/joint_states" />
+  </node>
+
+  <!-- for moveit -->
+  <node name="relay" pkg="topic_tools" type="relay" args="/kohaku/joint_states /joint_states" />
+</launch>

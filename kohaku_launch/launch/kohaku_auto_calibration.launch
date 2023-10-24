@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="restart_controller" default="true" />
+  <arg name="node_start_delay" default="3.0" />
+  <arg unless="$(arg restart_controller)" name="launch_prefix" value="" />
+  <arg     if="$(arg restart_controller)" name="launch_prefix"
+           value="bash -c 'sleep $(arg node_start_delay); $0 $@' " />
+
+  <group if="$(arg restart_controller)">
+    <include file="$(find kohaku_launch)/launch/kohaku_restart_controller.launch" />
+  </group>
+  <node pkg="kohaku_utils" type="kohaku_auto_joint_calibration"
+        name="kohaku_auto_joint_calibration"
+        args="172.16.1.102 r v2"
+	launch-prefix="$(arg launch_prefix)"/>
+</launch>

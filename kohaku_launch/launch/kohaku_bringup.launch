@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="sim" default="false" />
+  <arg name="moveit" default="true" />
+
+  <group unless="$(arg sim)">
+    <group if="$(arg moveit)">
+      <!-- launch the hardware controller + moveit without rviz -->
+      <include file="$(find kohaku_moveit_config)/launch/demo_hw.launch" >
+	    <arg name="use_gui" default="false" />
+	    <arg name="use_rviz" default="false" />
+      </include>
+    </group>
+    <group unless="$(arg moveit)">
+      <!-- launch the hardware controller node -->
+      <include file="$(find kohaku_ros_driver)/launch/kohaku_control.launch" />
+    </group>
+  </group>
+
+  <group if="$(arg sim)">
+    <node pkg="tf" type="static_transform_publisher" name="palm_to_tcp"
+          args="0 0 0.075 0 0 0 hand_palm_link tcp 100" />
+
+    <group if="$(arg moveit)">
+      <include file="$(find kohaku_moveit_config)/launch/demo_gazebo.launch" />
+    </group>
+    <group unless="$(arg moveit)">
+      <!-- Launch Gazebo and spawn the robot -->
+      <include file="$(find kohaku_gazebo)/launch/kohaku_model4_gazebo.launch" pass_all_args="true"/>
+    </group>
+  </group>
+</launch>

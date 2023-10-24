@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- These are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="gui" default="true"/>
+  <arg name="paused" default="true"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="model" default="kohaku_sim"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find kohaku_gazebo)/worlds/empty.world"/>
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+  </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <include file="$(find kohaku_description)/launch/kohaku_upload.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+        args="-urdf -x 0.0 -y 0.0 -z 0.0 -J shoulder_pitch 1.57 -J shoulder_pitch 1.57 -J elbow_pitch 1.57 -J elbow_pitch 1.57 -model kohaku -param robot_description"/>
+
+  <!-- ros_control launch file -->
+  <include file="$(find kohaku_gazebo)/launch/kohaku_controller.launch" />
+
+</launch>

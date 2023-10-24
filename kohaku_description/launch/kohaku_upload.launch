@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="model" default="kohaku_hw" />
+  <param name="robot_description"
+         command="$(find xacro)/xacro '$(find kohaku_description)/urdf/$(arg model).urdf.xacro'" />
+</launch>

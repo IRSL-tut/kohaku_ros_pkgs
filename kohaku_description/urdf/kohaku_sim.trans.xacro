@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<robot name="kohaku" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <!-- Transmission macro -->
+  <xacro:macro name="SimpleTransmissionPosition" params="joint n">
+    <transmission name="tran${n}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint}">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor${n}">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+  <!-- Transmission macro -->
+  <xacro:macro name="SimpleTransmissionEffort" params="joint n">
+    <transmission name="tran${n}">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="motor${n}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+  <xacro:SimpleTransmissionEffort n="1" joint="shoulder_yaw" />
+  <xacro:SimpleTransmissionEffort n="2" joint="shoulder_pitch" />
+  <xacro:SimpleTransmissionEffort n="3" joint="elbow_pitch" />
+  <xacro:SimpleTransmissionEffort n="4" joint="wrist_yaw" />
+  <xacro:SimpleTransmissionEffort n="5" joint="wrist_pitch" />
+  <xacro:SimpleTransmissionEffort n="6" joint="hand_yaw" />
+  <xacro:SimpleTransmissionEffort n="7" joint="l_finger_joint" />  
+  <xacro:SimpleTransmissionEffort n="8" joint="r_finger_joint" />
+  
+</robot>

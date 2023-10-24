@@ -39,6 +39,8 @@ class KohakuROSDriverNode(object):
         # parameters
         ipaddr = rospy.get_param('~ip_addr', '192.168.1.100')
         lr = rospy.get_param('~lr', 'r')
+        version = rospy.get_param('~version', 'v1')
+        finger = rospy.get_param('~finger', 'normal')
         self._joint_names = rospy.get_param('~joint_names', ['j1',
                                                              'j2',
                                                              'j3',
@@ -51,7 +53,11 @@ class KohakuROSDriverNode(object):
         self._sampling_rate = rospy.get_param('~sampling_rate', 100)
 
         # attributes
-        self._kohaku_driver = KohakuModel4(ipaddr, lr=lr, sleep_func=rospy.sleep)
+        self._kohaku_driver = KohakuModel4(ipaddr,
+                                           lr=lr,
+                                           version=version,
+                                           finger=finger,
+                                           sleep_func=rospy.sleep)
         self._joint_angles = None
         self._joint_currents = None
         self._joint_torques = None

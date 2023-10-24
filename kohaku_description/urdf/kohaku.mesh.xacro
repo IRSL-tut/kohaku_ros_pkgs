@@ -1,0 +1,330 @@
+<?xml version="1.0" ?>
+<robot name="kohaku" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:property name="camera_angle" value="1.23" />
+
+<link name="world"/>
+<joint name="world_to_base_link" type="fixed" >
+  <parent link="world" />
+  <child link="base_link" />
+</joint>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.12 0.0 0.06" rpy="0 0 0"/>
+    <mass value="10.0"/>
+    <inertia ixx="0.101" iyy="0.194" izz="0.2148" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.13 0 0.058" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.43 0.27 0.08"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <visual>
+    <origin xyz="-0.053 0 0.168" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.275 0.27 0.14"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <visual>
+    <origin xyz="0.065 0.12 0.009" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.013" radius="0.0155"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <visual>
+    <origin xyz="0.065 -0.12 0.009" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.013" radius="0.0155"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <visual>
+    <origin xyz="-0.330 0.12 0.009" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.013" radius="0.0155"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <visual>
+    <origin xyz="-0.330 -0.12 0.009" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.013" radius="0.0155"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.13 0 0.058" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.43 0.27 0.08"/>
+    </geometry>
+  </collision>
+  <collision>
+    <origin xyz="-0.053 0 0.168" rpy="0 0 0"/>
+    <geometry>
+      <box size="0.275 0.27 0.14"/>
+    </geometry>
+  </collision>
+  <collision>
+    <origin xyz="0.065 0.12 0.009" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.013" radius="0.0155"/>
+    </geometry>
+  </collision>
+  <collision>
+    <origin xyz="0.065 -0.12 0.009" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.013" radius="0.0155"/>
+    </geometry>
+  </collision>
+  <collision>
+    <origin xyz="-0.330 0.12 0.009" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.013" radius="0.0155"/>
+    </geometry>
+  </collision>
+  <collision>
+    <origin xyz="-0.330 -0.12 0.009" rpy="0 0 0"/>
+    <geometry>
+      <cylinder length="0.013" radius="0.0155"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="shoulder_link">
+  <inertial>
+    <origin xyz="-0.0002483716377100001 0.002599957397357383 0.07656293547299953" rpy="0 0 0"/>
+    <mass value="4.599230696027372"/>
+    <inertia ixx="0.018029" iyy="0.017921" izz="0.01062" ixy="3.5e-05" iyz="0.000417" ixz="2.8e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.165 -0.360019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_shoulder_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.165 -0.360019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_shoulder_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="upperarm_link">
+  <inertial>
+    <origin xyz="5.075907070683193e-05 0.0055551687418621265 0.06093355009099832" rpy="0 0 0"/>
+    <mass value="1.6464184320412805"/>
+    <inertia ixx="0.012435" iyy="0.01254" izz="0.000862" ixy="2e-06" iyz="-0.000385" ixz="5e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.16498 -0.502019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_upperarm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.16498 -0.502019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_upperarm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="forearm_link">
+  <inertial>
+    <origin xyz="-0.0028629714869261927 -0.0029849490325699057 0.0665229146241868" rpy="0 0 0"/>
+    <mass value="0.5147558278242914"/>
+    <inertia ixx="0.001435" iyy="0.001418" izz="0.000194" ixy="1e-06" iyz="-5.7e-05" ixz="-4.1e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.164945 -0.752019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_forearm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.164945 -0.752019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_forearm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wrist_yaw_link">
+  <inertial>
+    <origin xyz="-0.0012123899494678285 0.00799629493788756 0.05493382214308451" rpy="0 0 0"/>
+    <mass value="1.0197481013710548"/>
+    <inertia ixx="0.001319" iyy="0.001172" izz="0.000585" ixy="7e-06" iyz="-0.000192" ixz="2.4e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.164874 -0.902019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_wrist_yaw_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.164874 -0.902019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_wrist_yaw_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wrist_pitch_link">
+  <inertial>
+    <origin xyz="4.65267917359076e-05 0.0005212096653225973 0.03002034855665814" rpy="0 0 0"/>
+    <mass value="0.3895986537799301"/>
+    <inertia ixx="0.000199" iyy="0.000188" izz="0.000103" ixy="-0.0" iyz="-6e-06" ixz="1e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.16486 -1.002019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_wrist_pitch_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.16486 -1.002019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_wrist_pitch_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hand_palm_link">
+  <inertial>
+    <origin xyz="0.0002318570856491807 -6.828401333128231e-05 0.017667823933595006" rpy="0 0 0"/>
+    <mass value="0.32135536491616284"/>
+    <inertia ixx="0.000221" iyy="5.4e-05" izz="0.000213" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.164851 -1.067019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_hand_palm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.164851 -1.067019" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_hand_palm_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="r_finger_link">
+  <inertial>
+    <origin xyz="0.00015745354838760627 0.006862307384075728 0.03618445014614924" rpy="0 0 0"/>
+    <mass value="0.07719980680600205"/>
+    <inertia ixx="2e-05" iyy="2.8e-05" izz="1.5e-05" ixy="0.0" iyz="-4e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.133848 -1.089074" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_r_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.133848 -1.089074" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_r_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="l_finger_link">
+  <inertial>
+    <origin xyz="-0.00015745364544006435 -0.006872074383145355 0.03618219144765589" rpy="0 0 0"/>
+    <mass value="0.07719980680600244"/>
+    <inertia ixx="2e-05" iyy="2.8e-05" izz="1.5e-05" ixy="0.0" iyz="4e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.015 -0.195848 -1.089083" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_l_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.015 -0.195848 -1.089083" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://kohaku_description/meshes/left_l_finger_link_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="shoulder_yaw" type="revolute">
+  <origin xyz="0.0 0.0 0.238" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="shoulder_link"/>
+  <axis xyz="0.0 -0.00014 1.0"/>
+  <limit upper="2.7979" lower="-2.7979" effort="100" velocity="100"/>
+</joint>
+
+<joint name="shoulder_pitch" type="revolute">
+  <origin xyz="0.0 -2e-05 0.142" rpy="0 0 0"/>
+  <parent link="shoulder_link"/>
+  <child link="upperarm_link"/>
+  <axis xyz="-0.0 1.0 0.00014"/>
+  <limit upper="2.35619" lower="-0.785" effort="100" velocity="100"/>
+</joint>
+
+<joint name="elbow_pitch" type="revolute">
+  <origin xyz="0.0 -3.5e-05 0.25" rpy="0 0 0"/>
+  <parent link="upperarm_link"/>
+  <child link="forearm_link"/>
+  <axis xyz="-0.0 1.0 0.00014"/>
+  <limit upper="2.705" lower="0.436" effort="100" velocity="100"/>
+</joint>
+
+<joint name="wrist_yaw" type="revolute">
+  <origin xyz="0.0 -7.1e-05 0.15" rpy="0 0 0"/>
+  <parent link="forearm_link"/>
+  <child link="wrist_yaw_link"/>
+  <axis xyz="0.0 -0.00014 1.0"/>
+  <limit upper="2.094" lower="-2.094" effort="100" velocity="100"/>
+</joint>
+
+<joint name="wrist_pitch" type="revolute">
+  <origin xyz="0.0 -1.4e-05 0.1" rpy="0 0 0"/>
+  <parent link="wrist_yaw_link"/>
+  <child link="wrist_pitch_link"/>
+  <axis xyz="-0.0 1.0 0.00014"/>
+  <limit upper="1.57" lower="-1.57" effort="100" velocity="100"/>
+</joint>
+
+<joint name="hand_yaw" type="revolute">
+  <origin xyz="0.0 -9e-06 0.065" rpy="0 0 0"/>
+  <parent link="wrist_pitch_link"/>
+  <child link="hand_palm_link"/>
+  <axis xyz="-0.0 -0.00014 1.0"/>
+  <limit upper="2.967" lower="-2.967" effort="100" velocity="100"/>
+</joint>
+
+<joint name="l_finger_joint" type="revolute">
+  <origin xyz="0.0 0.030997 0.022064" rpy="0 0 0"/>
+  <parent link="hand_palm_link"/>
+  <child link="l_finger_link"/>
+  <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit upper="1.57" lower="-0.9" effort="100" velocity="100"/>
+</joint>
+
+<joint name="r_finger_joint" type="revolute">
+  <origin xyz="0.0 -0.031003 0.022055" rpy="0 0 0"/>
+  <parent link="hand_palm_link"/>
+  <child link="r_finger_link"/>
+  <axis xyz="1.0 0.0 0.0"/>
+  <limit upper="1.57" lower="-0.9" effort="100" velocity="100"/>
+</joint>
+
+</robot>
