@@ -602,4 +602,28 @@
   <child link="camera_jig_link"/>
 </joint>
 
+<link name="workspace">
+  <visual>
+    <geometry>
+      <box size="0.45 0.80 0.06" />
+    </geometry>
+  </visual>
+  <collision>
+    <geometry>
+      <box size="0.45 0.80 0.06" />
+    </geometry>
+  </collision>
+</link>
+<joint name="base_link_to_workspace" type="fixed" >
+  <parent link="base_link" />
+  <child  link="workspace" />
+  <origin xyz="0.26 0.0 0.03" rpy="0 0 0"/>
+</joint>
+<gazebo reference="workspace">
+  <visual><material>
+    <ambient>0.5 0.5 0.5 1</ambient>
+    <diffuse>0.5 0.5 0.5 1</diffuse>
+    <emmisive>0.2 0.2 0.2 1</emmisive>
+  </material></visual>
+</gazebo>
 </robot>
